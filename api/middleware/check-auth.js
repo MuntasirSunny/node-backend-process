@@ -1,4 +1,3 @@
-require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
@@ -8,12 +7,16 @@ module.exports = (req, res, next) => {
         //const token = req.body.token;
         console.log('Auth check at -' + Date.now().valueOf() / 1000);
 
-        const decoded = jwt.verify(token, process.env.SECRET);
-        
-        req.userData = decoded;
-        console.log(req.userData);
-        
-        next();
+        jwt.verify(token, process.env.SECRET, (err, decoded) => {
+            if (err) {
+                //console.log(err);
+                res.send(err)
+            } else {
+                req.userData = decoded;
+                //console.log(req.userData);
+                next();
+            }
+        });
         
     } catch (error) {
         return res.status(401).json({

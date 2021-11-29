@@ -4,7 +4,13 @@ const con = require('../../database');
 require('dotenv').config();
 
 exports.getUsers = function (req, res, next) {
-    res.status(200).json("GET USERS")
+
+    console.log(req.userData);
+    
+    res.status(200).json({
+        "Status": 200,
+        "Messege": "Auth Passed successfully!"
+    })
 };
 
 exports.signUpUser = function (req, res, next) {
@@ -103,7 +109,7 @@ exports.loginUser = function (req, res, next) {
 
                 else if (ans) {
                     const token = jwt.sign({
-                        exp: Math.floor(Date.now().valueOf() / 1000) + 60,
+                        exp: Math.floor(Date.now().valueOf() / 1000) + 60*60,
                         email: result[0].email,
                         userId: result[0].id,
                     }, process.env.SECRET);
