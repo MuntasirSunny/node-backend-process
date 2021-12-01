@@ -6,10 +6,13 @@ const morgan = require('morgan');
 // Router Paths
 const homeRoutes = require('./api/routes/homeRoutes');
 const userRoutes = require('./api/routes/userRoutes');
+const productRoutes = require('./api/routes/productRoute');
 // morgan
 
 app.use(morgan('dev'));
 app.use(express.json());
+
+app.use('/uploads', express.static('uploads'));
 
 // parse application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: false }))
@@ -29,6 +32,7 @@ app.use((req, res, next) => {
 // Routers
 app.use('/', homeRoutes);
 app.use('/users', userRoutes);
+app.use('/products', productRoutes);
 
 // Routers Ends
 
