@@ -116,8 +116,12 @@ exports.loginUser = function (req, res, next) {
 
                     return res.status(200).json({
                         message: 'Auth Success',
-                        token: token
-                    });
+                        token: token,
+                        uid: result[0].id,
+                        username: "admin",
+                        role: "admin",
+                        email: result[0].email,
+                        });
 
                 } else {
                     return res.status(401).json({
@@ -127,7 +131,8 @@ exports.loginUser = function (req, res, next) {
             });
         }else{
             res.status(500).json({
-                error: err
+                error: err,
+                message: "User Doesn't Exists!"
             });
         }
     });

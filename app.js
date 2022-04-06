@@ -2,7 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
-
+// cores
+var cors = require('cors');
 // Router Paths
 const homeRoutes = require('./api/routes/homeRoutes');
 const userRoutes = require('./api/routes/userRoutes');
@@ -11,6 +12,13 @@ const productRoutes = require('./api/routes/productRoute');
 
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(cors());
+
+// Use Cores With Options
+var corsOptions = {
+    origin: 'http://example.com',
+    optionsSuccessStatus: 200
+  }
 
 app.use('/uploads', express.static('uploads'));
 
